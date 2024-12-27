@@ -2165,13 +2165,13 @@ PyObject *py_uwsgi_send_spool(PyObject * self, PyObject * args, PyObject *kw) {
 		return PyErr_Format(PyExc_ValueError, "The argument of spooler callable must be a dictionary");
 	}
 
-	PyObject *pybody = uwsgi_py_dict_get(spool_dict, "body");
+	PyObject *pybody = PyDict_GetItemString(spool_dict, "body");
 	if (pybody) {
 		if (PyString_Check(pybody)) {
 			body = PyString_AsString(pybody);
 			body_len = PyString_Size(pybody);
 			Py_INCREF(pybody);
-			uwsgi_py_dict_del(spool_dict, "body");
+			PyDict_DelItemString(spool_dict, "body");
 		}
 	}
 
